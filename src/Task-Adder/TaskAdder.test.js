@@ -1,6 +1,6 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TaskAdder } from './TaskAdder'
 import { parse ,isEqual } from 'date-fns'
@@ -53,7 +53,7 @@ it('gives the correct name date pair upon submission', () => {
 
   userEvent.type(screen.getByLabelText("Name:"), name);
   userEvent.type(screen.getByLabelText("Date:"), dateString);
-  fireEvent.submit(screen.getByTestId("form"));
+  userEvent.click(screen.getByRole("button"));
 
   expect(mockOnSubmit.mock.calls.length).toBe(1);
 
@@ -72,7 +72,7 @@ it('gives the correct name date pair upon empty date submission', () => {
   expect(mockOnSubmit.mock.calls.length).toBe(0);
 
   userEvent.type(screen.getByLabelText("Name:"), name);
-  fireEvent.submit(screen.getByTestId("form"));
+  userEvent.click(screen.getByRole("button"));
 
   expect(mockOnSubmit.mock.calls.length).toBe(1);
 
