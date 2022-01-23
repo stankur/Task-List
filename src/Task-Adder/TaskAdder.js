@@ -37,7 +37,7 @@ function TaskAdder(props) {
                 <input type="text" value={name} onChange={onNameChange} id="name" />
                 <label htmlFor="date">Date: </label>
                 <input type="date" value={date} onChange={onDateChange} id="date" />
-                <input type="submit" />
+                <input type="submit" data-testid="submit"/>
             </form>
         </div>
     );

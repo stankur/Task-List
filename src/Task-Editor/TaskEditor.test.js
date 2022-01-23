@@ -46,7 +46,7 @@ it('calls the props.onSubmit correctly when submit is clicked', () => {
     const mockOnSubmit = jest.fn();
     const mockOnCancel = jest.fn();
 
-    render(<TaskEditor name="Exercise" dateString="2020-04-09" onSubmit={mockOnSubmit} onCancel={mockOnCancel}/>);
+    render(<TaskEditor name="Exercise" dateString="2020-04-09" onSubmit={mockOnSubmit} onCancel={mockOnCancel}/>, container);
 
     expect(mockOnSubmit.mock.calls.length).toBe(0);
 
@@ -72,7 +72,7 @@ it('calls onCancel correctly when cance is clicked', () => {
     const mockOnSubmit = jest.fn();
     const mockOnCancel = jest.fn();
 
-    render(<TaskEditor name="Exercise" dateString="2020-04-09" onSubmit={mockOnSubmit} onCancel={mockOnCancel}/>);
+    render(<TaskEditor name="Exercise" dateString="2020-04-09" onSubmit={mockOnSubmit} onCancel={mockOnCancel}/>, container);
 
     expect(mockOnCancel.mock.calls.length).toBe(0);
 
