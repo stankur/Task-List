@@ -24,7 +24,9 @@ function App() {
   }
 
   const getERDateString = () => {
-    return convertDateToDateString(editRequest.date, dateFormat);
+    if (editRequest.date) {
+      return convertDateToDateString(editRequest.date, dateFormat);
+    } 
   }
 
   const getERName = () => {
@@ -32,21 +34,23 @@ function App() {
   }
 
   const requestExecuteEdit = (nameAndDate) => {
-    if (isTaskNew(nameAndDate)) {
-      const newCurrentTasks = currentTasks.map((task) => {
-        if ((task.name === editRequest.name) && isEqual(task.date, editRequest.date)) {
-          const name = nameAndDate.name;
-          const date = nameAndDate.date;
+    if (nameAndDate.date.getTime()) {
+      if (isTaskNew(nameAndDate)) {
+        const newCurrentTasks = currentTasks.map((task) => {
+          if ((task.name === editRequest.name) && isEqual(task.date, editRequest.date)) {
+            const name = nameAndDate.name;
+            const date = nameAndDate.date;
 
-          return { name, date }
-        }
-        return task
-      })
+            return { name, date }
+          }
+          return task
+        })
 
-      setCurrentTasks(newCurrentTasks);
-    } 
+        setCurrentTasks(newCurrentTasks);
+      } 
 
     setEditRequest(null);
+    }
   }
 
   const requestCancelEdit = () => {
@@ -54,12 +58,14 @@ function App() {
   }
 
   const requestAddTask = (nameAndDate) => {
-    if (isTaskNew(nameAndDate)) {
-      const newCurrentTasks = [ ...currentTasks, nameAndDate ];
-      setCurrentTasks(newCurrentTasks);
+    if (nameAndDate.date){
+      if (isTaskNew(nameAndDate)) {
+        const newCurrentTasks = [ ...currentTasks, nameAndDate ];
+        setCurrentTasks(newCurrentTasks);
 
-    } else {
-      alert('task already exists');
+      } else {
+        alert('task already exists');
+      }
     }
   }
 
