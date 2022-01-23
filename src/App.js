@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { format } from 'date-fns'
+import { TaskBar } from './Task-bar/TaskBar'
+import { TaskAdder } from './Task-Adder/TaskAdder'
 
 function App() {
+  const [ currentTasks, setCurrentTasks] = useState({});
+
+  const findTask = ({ name, date }) => {
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <div>
+    <div>
+      Tasks
     </div>
+    <TaskBar />
+    <TaskForm />
+  </div>
+  );
+}
+
+function TaskForm() {
+  return (
+    
   );
 }
 
