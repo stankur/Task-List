@@ -26,6 +26,8 @@ function TaskAdder(props) {
             propsOnSubmit({ name:name, date:"" });
         }
 
+        setName("");
+        setDate("");
 
     };
 

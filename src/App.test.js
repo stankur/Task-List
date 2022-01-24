@@ -129,7 +129,7 @@ it('could edit an existing properly', () => {
 
   expect(screen.getAllByText("E").length).toBe(2);
 
-  userEvent.click(screen.getAllByText("E")[1]);
+  userEvent.click(screen.getAllByText("E")[0]);
 
   expect(screen.queryByText("Add Task")).not.toBeInTheDocument();
   expect(screen.getByText("Edit Task")).toBeInTheDocument();
@@ -155,4 +155,73 @@ it('could edit an existing properly', () => {
 
   expect(screen.getByText(replacementName)).toBeInTheDocument();
   expect(screen.getByText(formattedReplacementdate)).toBeInTheDocument();
+})
+
+it('renders empty input fields after a task is added', () => {
+  render(<App />, container);
+
+  const nameOfTaskToAdd = "Socialize"
+  const dateOfTaskToAdd = "2020-05-06"
+
+  userEvent.type((screen.getByLabelText("Name:")), nameOfTaskToAdd);
+  userEvent.type((screen.getByLabelText("Date:")), dateOfTaskToAdd);
+
+  userEvent.click(screen.getByTestId("submit"));
+
+  expect(screen.getByLabelText("Name:")).toHaveValue("");
+  expect(screen.getByLabelText("Date:")).toHaveValue("");
+})
+
+it('renders with appropriate name and date values after edit request', () => {
+  render(<App />, container);
+
+  const nameOfTaskToAdd = "Socialize"
+  const dateOfTaskToAdd = "2020-05-06"
+
+  userEvent.type((screen.getByLabelText("Name:")), nameOfTaskToAdd);
+  userEvent.type((screen.getByLabelText("Date:")), dateOfTaskToAdd);
+
+  userEvent.click(screen.getByTestId("submit"));
+
+  const nameOfTaskToAdd2 = "Breathe"
+  const dateOfTaskToAdd2 = "2020-02-06"
+
+  const formattedDateToAdd2 = "06 Feb 2020"
+
+  userEvent.clear(screen.getByLabelText("Name:"));
+  userEvent.clear(screen.getByLabelText("Date:"));
+
+  expect(screen.queryByText(nameOfTaskToAdd2)).not.toBeInTheDocument();
+  expect(screen.queryByText(formattedDateToAdd2)).not.toBeInTheDocument();
+
+  userEvent.type((screen.getByLabelText("Name:")), nameOfTaskToAdd2);
+  userEvent.type((screen.getByLabelText("Date:")), dateOfTaskToAdd2);
+
+  userEvent.click(screen.getByTestId("submit"));
+
+  expect(screen.getAllByRole("checkbox").length).toBe(2);
+
+  //now the editing part
+
+  expect(screen.getAllByText("E").length).toBe(2);
+
+  userEvent.click(screen.getAllByText("E")[0]);
+
+  expect(screen.getByLabelText("Name:")).toHaveValue("Breathe");
+  expect(screen.getByLabelText("Date:")).toHaveValue(dateOfTaskToAdd2);
+})
+
+it("resets input fields after submit button is clicked", () => {
+  render(<App />, container);
+
+  const nameOfTaskToAdd = "Socialize"
+  const dateOfTaskToAdd = "2020-05-06"
+
+  userEvent.type((screen.getByLabelText("Name:")), nameOfTaskToAdd);
+  userEvent.type((screen.getByLabelText("Date:")), dateOfTaskToAdd);
+
+  userEvent.click(screen.getByTestId("submit"));
+
+  expect(screen.getByLabelText("Name:")).toHaveValue("");
+  expect(screen.getByLabelText("Date:")).toHaveValue("");
 })

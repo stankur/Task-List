@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import { format, isEqual } from 'date-fns'
+import { compareAsc, format, isEqual } from 'date-fns'
 import { TaskBar } from './Task-bar/TaskBar'
 import { TaskAdder } from './Task-Adder/TaskAdder'
 import { TaskEditor } from './Task-Editor/TaskEditor'
-import { find } from 'lodash';
+import { find, cloneDeep } from 'lodash';
 
 
 function App() {
@@ -24,9 +24,7 @@ function App() {
   }
 
   const getERDateString = () => {
-    if (editRequest.date) {
-      return convertDateToDateString(editRequest.date, dateFormat);
-    } 
+      return convertDateToDateString(editRequest.date, 'yyyy-MM-dd');
   }
 
   const getERName = () => {
@@ -93,8 +91,23 @@ function App() {
     setEditRequest(nameAndDate);
   }
 
+  const sortByDate = (tasks) => {
+    tasks.sort((task1, task2) => {
+      return compareAsc(task1.date, task2.date);
+    })
+  } 
+
+  const sortedCopyByDateOfCurrentTasks = () => {
+    const deepClonedCurrentTasks = cloneDeep(currentTasks);
+    
+    sortByDate(deepClonedCurrentTasks);
+
+    return deepClonedCurrentTasks
+  }
+
   const makeTaskBars = () => {
-    return currentTasks.map((task) => {
+
+    return sortedCopyByDateOfCurrentTasks().map((task) => {
       const name = task.name;
       const date = task.date;
 
