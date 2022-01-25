@@ -15,6 +15,7 @@ afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
   container = null;
+  localStorage.clear()
 });
 
 it('initially has both TaskAdder and empty Tasks only', () => {

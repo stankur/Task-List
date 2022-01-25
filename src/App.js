@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { compareAsc, format, isEqual } from 'date-fns'
+import { parse,compareAsc, format, isEqual } from 'date-fns'
 import { TaskBar } from './Task-bar/TaskBar'
 import { TaskAdder } from './Task-Adder/TaskAdder'
 import { TaskEditor } from './Task-Editor/TaskEditor'
@@ -9,9 +9,29 @@ import { find, cloneDeep } from 'lodash';
 
 function App() {
 
-  const [ currentTasks, setCurrentTasks ] = useState([]);
+  let currentTasksFromEarlier;
+
+  if(!localStorage.getItem("currentTasks")) {
+    currentTasksFromEarlier = [];
+  } else {
+    const currentTasksFromEarlierRaw = JSON.parse(localStorage.getItem("currentTasks"));
+    const parsedDateConverted = currentTasksFromEarlierRaw.map((task) => {
+      return { name:task.name, date:parse(task.date, 'yyyy-MM-dd', new Date())}
+    })
+    currentTasksFromEarlier = parsedDateConverted
+  }
+  
+  const [ currentTasks, setCurrentTasks ] = useState(currentTasksFromEarlier);
   const [ editRequest, setEditRequest ] = useState(null);
 
+  useEffect(() => {
+    const dateConvertedCurrentTasks = currentTasks.map((task) => {
+      return { name:task.name, date:format(task.date, 'yyyy-MM-dd') }
+    })
+
+    const stringifiedCurrentTasks = JSON.stringify(dateConvertedCurrentTasks);
+    localStorage.setItem('currentTasks', stringifiedCurrentTasks);
+  })
 
   const dateFormat = 'dd MMM yyyy';
 
