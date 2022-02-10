@@ -1,4 +1,50 @@
 .App {
-  text-align: center;
+  --background-color: rgb(33, 33, 33);
+  --gap-size: 10px;
+  height: calc(100vh - (2 * var(--gap-size)));
+  background-color: var(--background-color);
+
+  padding: 10px;
 }
 
+.logo {
+  grid-area: logo;
+}
+
+.tasks {
+  grid-area: tasks;
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.modifier {
+  grid-area: modifier;
+}
+
+.stats {
+  grid-area: stats;
+}
+
+.wise-words {
+  grid-area: wise-words;
+}
+
+.content {
+  display: grid;
+  height: 100%;;
+
+  grid-template-columns: repeat(4, minmax(10px, 1fr));
+  grid-template-rows: repeat(7, minmax(10px, 1fr));
+  gap: 10px;
+
+  grid-template-areas: 
+  "logo tasks tasks tasks"
+  "modifier tasks tasks tasks"
+  "modifier tasks tasks tasks"
+  "stats tasks tasks tasks"
+  "stats tasks tasks tasks"
+  "wise-words tasks tasks tasks"
+  "wise-words tasks tasks tasks";
+}

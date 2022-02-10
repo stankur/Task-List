@@ -141,15 +141,30 @@ function App() {
   }
  
   return (
-  <div>
-    <div>
-      Tasks
+  <div className="App">
+    <div className="content">
+      <div className="logo">
+        TASKLIST
+      </div>
+      <div className="modifier">
+        {isThereEditRequest()
+        ? <TaskEditor name={getERName()} dateString={getERDateString()} onSubmit={requestExecuteEdit} onCancel={requestCancelEdit} />
+        : <TaskAdder onSubmit={requestAddTask}/>
+        }
+      </div>
+      <div>
+        Tasks
+      </div>
+      <div className="tasks">
+        {makeTaskBars()}
+      </div>
+      <div className="stats">
+        stats later
+      </div>
+      <div className="wise-words">
+        some wise words 
+      </div>
     </div>
-    {makeTaskBars()}
-    {isThereEditRequest()
-    ? <TaskEditor name={getERName()} dateString={getERDateString()} onSubmit={requestExecuteEdit} onCancel={requestCancelEdit} />
-    : <TaskAdder onSubmit={requestAddTask}/>
-    }
   </div>
   );
 }

@@ -1,0 +1,39 @@
+.task-bar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: max(200px, 50%);
+    margin: 10px auto;
+    padding: 10px;
+    box-shadow: rgb(12, 15, 17);
+
+    border-radius: 5px;
+    border-color: rgb(67, 109, 110);
+    border-width: 1px;
+    border-style: solid;
+
+    gap: 10px;
+
+    background-image: linear-gradient(to right, rgba(65, 66, 66, 0.7), rgba(69, 71, 71, 0.7));
+
+    color: rgb(155, 219, 219);
+
+    font-family: sans-serif;
+    font-style: bold;
+
+}
+
+.task-name {
+    --lighter-color: rgba(97, 99, 99, 0.5);
+    flex-grow: 1;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: left;
+    font-weight: 400;
+    font-size: large;
+    letter-spacing: 0.5px;
+    background-color: var(--lighter-color);
+
+
+}
+
