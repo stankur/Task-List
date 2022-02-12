@@ -1,10 +1,26 @@
-import React from "react"
+import React, { useState } from "react"
 import './style.css'
 
 function TaskBar(props) {
+    const [ isChecked, setIsChecked ] = useState(false);
+
+    const onCheckBoxClick = () => {
+        setIsChecked(!isChecked);
+    }
+
+    let checkBoxContentClasses = "checkbox-content";
+
+    if (isChecked) {
+        checkBoxContentClasses = checkBoxContentClasses + " checked-checkbox";
+    }
+
+
     return (
         <div className="task-bar">
-            <input type="checkbox" />
+            <label htmlFor="check" className="checkbox" onClick={onCheckBoxClick}>
+                <span className={checkBoxContentClasses}>✓</span>
+            </label>
+            <input type="checkbox" name="check" className="check"/>
             <span className="task-name">{props.name}</span>
             <span>{props.dateString}</span>
             <button id="x" onClick={props.onXClick}>X</button>

@@ -1,0 +1,66 @@
+.description-task-adder {
+    border-color: var(--greeny);  
+    color: var(--greeny);
+}
+
+.form {
+    --small-margin: 5px;
+    border-color: var(--greeny);  
+}
+
+label {
+    display: block;
+    margin-bottom: var(--small-margin);
+    color: var(--greeny);
+}
+
+.form > form > input {
+    --padding: 2px;
+    --margin-horizontal: 0px;
+    --font-size: 13px;
+
+    font-family: var(--roundy-font), sans-serif;
+    font-size: var(--font-size);
+    color: var(--white);
+
+    box-sizing: border-box;
+
+    display: block;
+
+    padding: var(--padding);
+    margin-left: var(--margin-horizontal);
+    margin-right: var(--margin-horizontal);
+    margin-bottom: var(--big-margin);
+
+    width: 100%;
+
+    background-color: var(--semi-light-gray);
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: var(--greeny);
+    
+}
+
+.form > form > input[type="submit"] {
+    --own-padding: 6px;
+
+    position: absolute;
+    right: var(--push);
+    bottom: var(--push);
+    margin-bottom: 0;
+
+    width: max(calc(6ch + (2 * var(--own-padding))), 20%);
+    padding: var(--own-padding);
+
+    background-color: var(--semi-dark);
+    color: var(--greeny);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--semi-light-gray) inset !important;
+    -webkit-text-fill-color: var(--white) !important;
+}

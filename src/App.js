@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import './card-style.css'
 import { parse,compareAsc, format, isEqual } from 'date-fns'
 import { TaskBar } from './Task-bar/TaskBar'
 import { TaskAdder } from './Task-Adder/TaskAdder'
@@ -143,8 +144,10 @@ function App() {
   return (
   <div className="App">
     <div className="content">
-      <div className="logo">
-        TASKLIST
+      <div className="logo-container">
+        <div className="logo">
+          <span>TASKLIST</span>
+        </div>
       </div>
       <div className="modifier">
         {isThereEditRequest()
@@ -152,17 +155,19 @@ function App() {
         : <TaskAdder onSubmit={requestAddTask}/>
         }
       </div>
-      <div>
-        Tasks
+      <div className="card-container tasks">
+        <div className="card-description description-current-tasks">CURRENT TASKS</div>
+        <div className="card-content content-current-tasks">
+          {makeTaskBars()}
+        </div>
       </div>
-      <div className="tasks">
-        {makeTaskBars()}
+      <div className="card-container stats">
+        <div className="card-description description-stats">STATISTICS</div>
+        <div className="card-content content-stats"></div>
       </div>
-      <div className="stats">
-        stats later
-      </div>
-      <div className="wise-words">
-        some wise words 
+      <div className="card-container wise-words">
+        <div className="card-description description-wise-words">WISE WORDS</div>
+        <div className="card-content content-wise-words"></div>
       </div>
     </div>
   </div>
