@@ -79,18 +79,9 @@
 
 .tasks {
   grid-area: tasks;
-
+  
   display: flex;
   flex-direction: column;
-}
-
-.description-current-tasks {
-  border-color: var(--bluey);
-  color: var(--bluey);
-}
-
-.content-current-tasks {
-  border-color: var(--bluey);
 }
 
 .modifier {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './card-style.css'
-import { parse,compareAsc, format, isEqual } from 'date-fns'
-import { TaskBar } from './Task-bar/TaskBar'
+import { parse, format, isEqual } from 'date-fns'
+import { TaskBars } from './Task-Bars/TaskBars'
 import { TaskAdder } from './Task-Adder/TaskAdder'
 import { TaskEditor } from './Task-Editor/TaskEditor'
-import { find, cloneDeep } from 'lodash';
+import { find } from 'lodash';
 
 
 function App() {
@@ -33,8 +33,6 @@ function App() {
     const stringifiedCurrentTasks = JSON.stringify(dateConvertedCurrentTasks);
     localStorage.setItem('currentTasks', stringifiedCurrentTasks);
   })
-
-  const dateFormat = 'dd MMM yyyy';
 
   const isThereEditRequest = () => {
     return !(editRequest == null)
@@ -111,35 +109,6 @@ function App() {
   const requestEditTask = (nameAndDate) => {
     setEditRequest(nameAndDate);
   }
-
-  const sortByDate = (tasks) => {
-    tasks.sort((task1, task2) => {
-      return compareAsc(task1.date, task2.date);
-    })
-  } 
-
-  const sortedCopyByDateOfCurrentTasks = () => {
-    const deepClonedCurrentTasks = cloneDeep(currentTasks);
-    
-    sortByDate(deepClonedCurrentTasks);
-
-    return deepClonedCurrentTasks
-  }
-
-  const makeTaskBars = () => {
-
-    return sortedCopyByDateOfCurrentTasks().map((task) => {
-      const name = task.name;
-      const date = task.date;
-
-      const dateString = convertDateToDateString(date, dateFormat);
-
-      const onXClick = () => { requestRemoveTask({ name, date })};
-      const onEClick = () => { requestEditTask({ name, date })};
-
-      return <TaskBar name={name} dateString={dateString} onXClick={onXClick} onEClick={onEClick} key={name+dateString}/>
-    });
-  }
  
   return (
   <div className="App">
@@ -155,12 +124,7 @@ function App() {
         : <TaskAdder onSubmit={requestAddTask}/>
         }
       </div>
-      <div className="card-container tasks">
-        <div className="card-description description-current-tasks">CURRENT TASKS</div>
-        <div className="card-content content-current-tasks">
-          {makeTaskBars()}
-        </div>
-      </div>
+      <TaskBars tasks={currentTasks} requestRemoveTask={requestRemoveTask} requestEditTask={requestEditTask} />
       <div className="card-container stats">
         <div className="card-description description-stats">STATISTICS</div>
         <div className="card-content content-stats"></div>
@@ -176,3 +140,4 @@ function App() {
 
 
 export default App;
+
