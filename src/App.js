@@ -17,7 +17,7 @@ function App() {
   } else {
     const currentTasksFromEarlierRaw = JSON.parse(localStorage.getItem("currentTasks"));
     const parsedDateConverted = currentTasksFromEarlierRaw.map((task) => {
-      return { name:task.name, date:parse(task.date, 'yyyy-MM-dd', new Date())}
+      return { name:task.name, date:parse(task.date, 'yyyy-MM-dd', new Date()), isChecked:task.isChecked }
     })
     currentTasksFromEarlier = parsedDateConverted
   }
@@ -27,12 +27,31 @@ function App() {
 
   useEffect(() => {
     const dateConvertedCurrentTasks = currentTasks.map((task) => {
-      return { name:task.name, date:format(task.date, 'yyyy-MM-dd') }
+      return { name:task.name, date:format(task.date, 'yyyy-MM-dd'), isChecked:task.isChecked }
     })
 
     const stringifiedCurrentTasks = JSON.stringify(dateConvertedCurrentTasks);
     localStorage.setItem('currentTasks', stringifiedCurrentTasks);
   })
+
+  const modifyTasksAtTask = (nameAndDate, modifier) => {
+    const modifiedCurrentTasks = currentTasks.map((task) => {
+      if ((task.name === nameAndDate.name) && isEqual(task.date, nameAndDate.date)) {
+        return modifier(task);
+      } 
+      return task;
+    });
+    return modifiedCurrentTasks
+  }
+
+  const check = (nameAndDate) => {
+    setCurrentTasks(
+    modifyTasksAtTask(nameAndDate, (task) => {
+      const newCheckedState = !task.isChecked;
+      return { name:task.name, date:task.date, isChecked:newCheckedState }
+    })
+    );
+  }
 
   const isThereEditRequest = () => {
     return !(editRequest == null)
@@ -53,17 +72,9 @@ function App() {
   const requestExecuteEdit = (nameAndDate) => {
     if (nameAndDate.date.getTime()) {
       if (isTaskNew(nameAndDate)) {
-        const newCurrentTasks = currentTasks.map((task) => {
-          if ((task.name === editRequest.name) && isEqual(task.date, editRequest.date)) {
-            const name = nameAndDate.name;
-            const date = nameAndDate.date;
-
-            return { name, date }
-          }
-          return task
-        })
-
-        setCurrentTasks(newCurrentTasks);
+        setCurrentTasks(modifyTasksAtTask(editRequest, (task) => {
+          return { name:editRequest.name, date:editRequest.date, isChecked:task.isChecked }
+        }));
       } 
 
     setEditRequest(null);
@@ -74,10 +85,11 @@ function App() {
     setEditRequest(null);
   }
 
-  const requestAddTask = (nameAndDate) => {
+  const requestAddTask = (nameAndDate) => { 
     if (nameAndDate.date){
       if (isTaskNew(nameAndDate)) {
-        const newCurrentTasks = [ ...currentTasks, nameAndDate ];
+        const newTask = {...nameAndDate, isChecked: false};
+        const newCurrentTasks = [ ...currentTasks, newTask ];
         setCurrentTasks(newCurrentTasks);
 
       } else {
@@ -124,7 +136,9 @@ function App() {
         : <TaskAdder onSubmit={requestAddTask}/>
         }
       </div>
-      <TaskBars tasks={currentTasks} requestRemoveTask={requestRemoveTask} requestEditTask={requestEditTask} />
+      <div className="tasks">
+        <TaskBars tasks={currentTasks} requestRemoveTask={requestRemoveTask} requestEditTask={requestEditTask} check={check}/>
+      </div>
       <div className="card-container stats">
         <div className="card-description description-stats">STATISTICS</div>
         <div className="card-content content-stats"></div>

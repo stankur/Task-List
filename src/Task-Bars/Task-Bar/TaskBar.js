@@ -1,16 +1,15 @@
-import React, { useState } from "react"
+import React from "react"
 import './style.css'
 
 function TaskBar(props) {
-    const [ isChecked, setIsChecked ] = useState(false);
-
     const onCheckBoxClick = () => {
-        setIsChecked(!isChecked);
+        const onCheck = props.onCheck;
+        onCheck();
     }
 
     let checkBoxContentClasses = "checkbox-content";
 
-    if (isChecked) {
+    if (props.isChecked) {
         checkBoxContentClasses = checkBoxContentClasses + " checked-checkbox";
     }
 

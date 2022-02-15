@@ -26,7 +26,7 @@ it('initially has both TaskAdder and empty Tasks only', () => {
   expect(screen.queryByText("Edit Task")).not.toBeInTheDocument();
   expect(screen.queryByText("cancel")).not.toBeInTheDocument();
   expect(screen.queryByText("E")).not.toBeInTheDocument();
-  expect(screen.queryByText("x")).not.toBeInTheDocument();
+  expect(screen.queryByText("X")).not.toBeInTheDocument();
 
 
 });
@@ -45,7 +45,7 @@ it('could add tasks properly', () => {
   userEvent.click(screen.getByTestId("submit"));
 
   expect(screen.getByText(nameOfTaskToAdd)).toBeInTheDocument();
-  expect(screen.getByText("x")).toBeInTheDocument();
+  expect(screen.getByText("X")).toBeInTheDocument();
   expect(screen.getByRole("checkbox")).toBeInTheDocument();
   expect(screen.getByText(formattedDate)).toBeInTheDocument();
 

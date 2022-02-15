@@ -23,7 +23,7 @@ it("has all interactive buttons", () => {
 
     render(<TaskBar name="Breathe" dateString="21 Feb 2021" onXClick={mockOnXClick} onEClick = {mockOnEClick}/>, container);
     expect(screen.getByRole("checkbox")).toBeInTheDocument();
-    expect(screen.getByText("x")).toBeInTheDocument();
+    expect(screen.getByText("X")).toBeInTheDocument();
     expect(screen.getByText("E")).toBeInTheDocument();
 });
 
@@ -52,7 +52,7 @@ it("calls correct function on x Icon clicked", () => {
     render(<TaskBar name="Eat" dateString="25/2/2021" onXClick={mockOnXClick} onEClick = {mockOnEClick} />, container)
     
     expect(mockOnXClick.mock.calls.length).toBe(0);
-    userEvent.click(screen.getByText("x"));
+    userEvent.click(screen.getByText("X"));
     expect(mockOnXClick.mock.calls.length).toBe(1);
 
 });

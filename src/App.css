@@ -79,9 +79,6 @@
 
 .tasks {
   grid-area: tasks;
-  
-  display: flex;
-  flex-direction: column;
 }
 
 .modifier {

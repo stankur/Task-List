@@ -1,10 +1,14 @@
-.description-current-tasks {
+.description-task-bars {
     border-color: var(--bluey);
     color: var(--bluey);
 }
 
   
-.content-current-tasks {
+.content-task-bars {
     border-color: var(--bluey);
 }
 
+.task-bars-container {
+    display: flex;
+    flex-direction: column;
+}

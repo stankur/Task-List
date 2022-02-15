@@ -1,4 +1,4 @@
-import { TaskBar } from '../Task-Bar/TaskBar';
+import { TaskBar } from './Task-Bar/TaskBar';
 import { cloneDeep } from 'lodash'
 import { compareAsc, format } from 'date-fns'
 import './style.css'
@@ -30,22 +30,25 @@ function TaskBars(props) {
         return getSortedCopyByDateOfTasks(tasks).map((task) => {
             const name = task.name;
             const date = task.date;
+            const isChecked = task.isChecked;
     
             const dateString = convertDateToDateString(date, dateFormat);
     
             const onXClick = () => { props.requestRemoveTask({ name, date })};
             const onEClick = () => { props.requestEditTask({ name, date })};
+            const onCheck = () => { props.check({ name, date }) }
     
-            return <TaskBar name={name} dateString={dateString} onXClick={onXClick} onEClick={onEClick} key={name+dateString}/>
+            return <TaskBar name={name} dateString={dateString} onXClick={onXClick} onEClick={onEClick} 
+            isChecked={isChecked} onCheck={onCheck} key={name+dateString}/>
         });
-    }
+    } 
     
     return (
-        <div className="card-container tasks">
-            <div className="card-description description-current-tasks">
+        <div className="card-container task-bars-container">
+            <div className="card-description description-task-bars">
                 CURRENT TASKS
             </div>
-            <div className="card-content content-current-tasks">
+            <div className="card-content content-task-bars">
                 {makeTaskBars(props.tasks)}
             </div>
         </div>
