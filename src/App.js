@@ -5,6 +5,7 @@ import { parse, format, isEqual } from 'date-fns'
 import { TaskBars } from './Task-Bars/TaskBars'
 import { TaskAdder } from './Task-Adder/TaskAdder'
 import { TaskEditor } from './Task-Editor/TaskEditor'
+import { Statistics } from './Statistics/Statistics';
 import { find } from 'lodash';
 
 
@@ -121,7 +122,16 @@ function App() {
   const requestEditTask = (nameAndDate) => {
     setEditRequest(nameAndDate);
   }
+
+  const getNumTasksDone = () => {
+    return (currentTasks.filter((task) => { return task.isChecked })).length;
+  }
+
+  const getNumAllTasks = () => {
+    return currentTasks.length
+  }
  
+
   return (
   <div className="App">
     <div className="content">
@@ -139,9 +149,8 @@ function App() {
       <div className="tasks">
         <TaskBars tasks={currentTasks} requestRemoveTask={requestRemoveTask} requestEditTask={requestEditTask} check={check}/>
       </div>
-      <div className="card-container stats">
-        <div className="card-description description-stats">STATISTICS</div>
-        <div className="card-content content-stats"></div>
+      <div className="stats">
+        <Statistics numTasksDone={getNumTasksDone()} numAllTasks={getNumAllTasks()} />
       </div>
       <div className="card-container wise-words">
         <div className="card-description description-wise-words">WISE WORDS</div>

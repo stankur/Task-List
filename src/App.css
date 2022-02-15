@@ -90,15 +90,6 @@
   grid-area: stats;
 }
 
-.description-stats {
-  border-color: var(--greeny);
-  color: var(--greeny);
-}
-
-.content-stats {
-  border-color: var(--greeny);
-}
-
 .wise-words {
   grid-area: wise-words;
 }
