@@ -1,58 +1,56 @@
 .card-container {
-    --small-gap: 8px;
-    --small-font: 14px;
+	--small-gap: 8px;
+	--small-font: 14px;
 
-    position: relative;
-    width: 100%;
-    height: 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 .card-description {
-    --left-push: 10px;
-    --top-push: var(--small-gap);
+	--left-push: 10px;
+	--top-push: var(--small-gap);
 
-    position: absolute;
-    width: calc(100% - (2 * var(--left-push)));
-    height: calc(100% - (2 * var(--top-push)));
-    background-color: var(--light-gray);
+	position: absolute;
+	width: calc(100% - (2 * var(--left-push)));
+	height: calc(100% - (2 * var(--top-push)));
+	background-color: var(--light-gray);
 
-    border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    /* please provide value for border-color */
-    /* please provide value for color */
+	border-style: solid;
+	border-radius: 10px;
+	border-width: 1px;
+	/* please provide value for border-color */
+	/* please provide value for color */
 
-    padding-top: var(--top-push);
-    padding-bottom: var(--top-push);
-    padding-left: var(--left-push);
-    padding-right: var(--left-push);
+	padding-top: var(--top-push);
+	padding-bottom: var(--top-push);
+	padding-left: var(--left-push);
+	padding-right: var(--left-push);
 
-    font-family: var(--roundy-font), sans-serif;
+	font-family: var(--roundy-font), sans-serif;
 }
-
-
 
 .card-content {
-    --push: 10px;
-    --font-size: 12px;
-    --big-margin: 10px;
-    
-    top: calc((2 * var(--small-gap)) + var(--small-font));
+	--push: 10px;
+	--font-size: 12px;
+	--big-margin: 10px;
 
-    padding: var(--push);
-    width: calc(100% - (2 * var(--push)));
-    height: calc(100% - (2 * var(--small-gap)) - var(--small-font) - (2 * var(--push)));
+	top: calc((2 * var(--small-gap)) + var(--small-font));
 
-    border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    /* please provide value for border-color */
+	padding: var(--push);
+	width: calc(100% - (2 * var(--push)));
+	height: calc(
+		100% - (2 * var(--small-gap)) - var(--small-font) - (2 * var(--push))
+	);
 
-    position: absolute;
+	border-style: solid;
+	border-radius: 10px;
+	border-width: 1px;
+	/* please provide value for border-color */
 
-    background-color: var(--semi-dark);
-    font-family: var(--roundy-font), sans-serif;
-    font-size: var(--font-size);
+	position: absolute;
+
+	background-color: var(--semi-dark);
+	font-family: var(--roundy-font), sans-serif;
+	font-size: var(--font-size);
 }
-
-
