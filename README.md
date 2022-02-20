@@ -1,4 +1,4 @@
-# Task List
+# Task List (not really done yet)
 
 What you could do with this project:
 
