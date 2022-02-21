@@ -3,7 +3,7 @@ import { parse } from "date-fns";
 import "./style.css";
 import "../card-style.css";
 
-function TaskAdder(props) {
+function TaskAdder({ onSubmit }) {
 	const [name, setName] = useState("");
 	const [date, setDate] = useState("");
 
@@ -15,16 +15,14 @@ function TaskAdder(props) {
 		setDate(event.target.value);
 	};
 
-	const propsOnSubmit = props.onSubmit;
-
-	const onSubmit = (event) => {
+	const submit = (event) => {
 		event.preventDefault();
 
 		if (date) {
 			const parsedDate = parse(date, "yyyy-MM-dd", new Date());
-			propsOnSubmit({ name: name, date: parsedDate });
+			onSubmit({ name: name, date: parsedDate });
 		} else {
-			propsOnSubmit({ name: name, date: "" });
+			onSubmit({ name: name, date: "" });
 		}
 
 		setName("");
@@ -37,7 +35,7 @@ function TaskAdder(props) {
 				ADD TASK
 			</div>
 			<div className="card-content form">
-				<form data-testid="form" onSubmit={onSubmit}>
+				<form data-testid="form" onSubmit={submit}>
 					<label htmlFor="name">NAME </label>
 					<input
 						type="text"
@@ -52,7 +50,7 @@ function TaskAdder(props) {
 						onChange={onDateChange}
 						id="date"
 					/>
-					<input type="submit" data-testid="submit" />
+					<input type="submit" data-testid="Submit" />
 				</form>
 			</div>
 		</div>

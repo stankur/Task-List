@@ -1,15 +1,14 @@
 import React from "react";
 import "./style.css";
 
-function TaskBar(props) {
+function TaskBar({ name, dateString, onXClick, onEClick, isChecked, onCheck }) {
 	const onCheckBoxClick = () => {
-		const onCheck = props.onCheck;
 		onCheck();
 	};
 
 	let checkBoxContentClasses = "checkbox-content";
 
-	if (props.isChecked) {
+	if (isChecked) {
 		checkBoxContentClasses = checkBoxContentClasses + " checked-checkbox";
 	}
 
@@ -23,12 +22,12 @@ function TaskBar(props) {
 				<span className={checkBoxContentClasses}>✓</span>
 			</label>
 			<input type="checkbox" name="check" className="check" />
-			<span className="task-name">{props.name}</span>
-			<span>{props.dateString}</span>
-			<button id="x" onClick={props.onXClick}>
+			<span className="task-name">{name}</span>
+			<span>{dateString}</span>
+			<button id="x" onClick={onXClick}>
 				X
 			</button>
-			<button id="E" onClick={props.onEClick}>
+			<button id="E" onClick={onEClick}>
 				E
 			</button>
 		</div>

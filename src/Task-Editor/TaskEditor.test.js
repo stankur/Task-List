@@ -24,20 +24,20 @@ it("has all the relevant things", () => {
 
 	render(
 		<TaskEditor
-			name="poop"
-			dateString="2022-01-02"
+			taskName="poop"
+			taskDate={new Date("2022-01-02")}
 			onSubmit={mockOnSubmit}
 			onCancel={mockOnCancel}
 		/>,
 		container
 	);
 
-	expect(screen.getByText("Edit Task")).toBeInTheDocument();
-	expect(screen.getByLabelText("Name:")).toBeInTheDocument();
+	expect(screen.getByText("EDIT TASK")).toBeInTheDocument();
+	expect(screen.getByLabelText("NAME")).toBeInTheDocument();
 	expect(screen.getByRole("textbox")).toBeInTheDocument();
-	expect(screen.getByLabelText("Date:")).toBeInTheDocument();
-	expect(screen.getByTestId("submit")).toBeInTheDocument();
-	expect(screen.getByText("cancel")).toBeInTheDocument();
+	expect(screen.getByLabelText("DATE")).toBeInTheDocument();
+	expect(screen.getByTestId("Submit")).toBeInTheDocument();
+	expect(screen.getByText("Cancel")).toBeInTheDocument();
 });
 
 it("renders initial task info at the beginning", () => {
@@ -46,16 +46,16 @@ it("renders initial task info at the beginning", () => {
 
 	render(
 		<TaskEditor
-			name="Cook"
-			dateString="2021-02-03"
+			taskName="Cook"
+			taskDate={parse("2021-02-03", "yyyy-MM-dd", new Date())}
 			onSubmit={mockOnSubmit}
 			onCancel={mockOnCancel}
 		/>,
 		container
 	);
 
-	expect(screen.getByLabelText("Name:")).toHaveValue("Cook");
-	expect(screen.getByLabelText("Date:")).toHaveValue("2021-02-03");
+	expect(screen.getByLabelText("NAME")).toHaveValue("Cook");
+	expect(screen.getByLabelText("DATE")).toHaveValue("2021-02-03");
 });
 
 it("calls the props.onSubmit correctly when submit is clicked", () => {
@@ -64,8 +64,8 @@ it("calls the props.onSubmit correctly when submit is clicked", () => {
 
 	render(
 		<TaskEditor
-			name="Exercise"
-			dateString="2020-04-09"
+			taskName="Exercise"
+			taskDate={parse("2020-04-09", "yyyy-MM-dd", new Date())}
 			onSubmit={mockOnSubmit}
 			onCancel={mockOnCancel}
 		/>,
@@ -79,13 +79,13 @@ it("calls the props.onSubmit correctly when submit is clicked", () => {
 
 	const date = parse(dateString, "yyyy-MM-dd", new Date());
 
-	userEvent.clear(screen.getByLabelText("Name:"));
-	userEvent.clear(screen.getByLabelText("Date:"));
+	userEvent.clear(screen.getByLabelText("NAME"));
+	userEvent.clear(screen.getByLabelText("DATE"));
 
-	userEvent.type(screen.getByLabelText("Name:"), name);
-	userEvent.type(screen.getByLabelText("Date:"), dateString);
+	userEvent.type(screen.getByLabelText("NAME"), name);
+	userEvent.type(screen.getByLabelText("DATE"), dateString);
 
-	userEvent.click(screen.getByTestId("submit"));
+	userEvent.click(screen.getByTestId("Submit"));
 
 	expect(mockOnSubmit.mock.calls.length).toBe(1);
 	expect(mockOnSubmit.mock.calls[0][0].name).toBe(name);
@@ -98,8 +98,8 @@ it("calls onCancel correctly when cance is clicked", () => {
 
 	render(
 		<TaskEditor
-			name="Exercise"
-			dateString="2020-04-09"
+			taskName="Exercise"
+			taskDate={parse("2020-04-09", "yyyy-MM-dd", new Date())}
 			onSubmit={mockOnSubmit}
 			onCancel={mockOnCancel}
 		/>,
@@ -111,13 +111,13 @@ it("calls onCancel correctly when cance is clicked", () => {
 	const name = "Study";
 	const dateString = "2021-02-07";
 
-	userEvent.clear(screen.getByLabelText("Name:"));
-	userEvent.clear(screen.getByLabelText("Date:"));
+	userEvent.clear(screen.getByLabelText("NAME"));
+	userEvent.clear(screen.getByLabelText("DATE"));
 
-	userEvent.type(screen.getByLabelText("Name:"), name);
-	userEvent.type(screen.getByLabelText("Date:"), dateString);
+	userEvent.type(screen.getByLabelText("NAME"), name);
+	userEvent.type(screen.getByLabelText("DATE"), dateString);
 
-	userEvent.click(screen.getByText("cancel"));
+	userEvent.click(screen.getByText("Cancel"));
 
 	expect(mockOnCancel.mock.calls.length).toBe(1);
 });

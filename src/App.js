@@ -75,12 +75,8 @@ function App() {
 		return !(editRequest == null);
 	};
 
-	const convertDateToDateString = (date, dateFormat) => {
-		return format(date, dateFormat);
-	};
-
-	const getERDateString = () => {
-		return convertDateToDateString(editRequest.date, "yyyy-MM-dd");
+	const getERDate = () => {
+		return editRequest.date;
 	};
 
 	const getERName = () => {
@@ -93,8 +89,8 @@ function App() {
 				setCurrentTasks(
 					modifyTasksAtTask(editRequest, (task) => {
 						return {
-							name: editRequest.name,
-							date: editRequest.date,
+							name: nameAndDate.name,
+							date: nameAndDate.date,
 							isChecked: task.isChecked,
 						};
 					})
@@ -172,8 +168,8 @@ function App() {
 				<div className="modifier">
 					{isThereEditRequest() ? (
 						<TaskEditor
-							name={getERName()}
-							dateString={getERDateString()}
+							taskName={getERName()}
+							taskDate={getERDate()}
 							onSubmit={requestExecuteEdit}
 							onCancel={requestCancelEdit}
 						/>

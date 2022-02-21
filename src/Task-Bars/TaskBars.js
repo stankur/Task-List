@@ -4,7 +4,7 @@ import { compareAsc, format } from "date-fns";
 import "./style.css";
 import "../card-style.css";
 
-function TaskBars(props) {
+function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
 	const dateFormat = "dd MMM yyyy";
 
 	const convertDateToDateString = (date, dateFormat) => {
@@ -34,13 +34,13 @@ function TaskBars(props) {
 			const dateString = convertDateToDateString(date, dateFormat);
 
 			const onXClick = () => {
-				props.requestRemoveTask({ name, date });
+				requestRemoveTask({ name, date });
 			};
 			const onEClick = () => {
-				props.requestEditTask({ name, date });
+				requestEditTask({ name, date });
 			};
 			const onCheck = () => {
-				props.check({ name, date });
+				check({ name, date });
 			};
 
 			return (
@@ -63,7 +63,7 @@ function TaskBars(props) {
 				CURRENT TASKS
 			</div>
 			<div className="card-content content-task-bars">
-				{makeTaskBars(props.tasks)}
+				{makeTaskBars(tasks)}
 			</div>
 		</div>
 	);
