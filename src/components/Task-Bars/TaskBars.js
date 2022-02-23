@@ -1,8 +1,8 @@
-import { TaskBar } from "./Task-Bar/TaskBar";
+import { TaskBar } from "../Task-Bar/TaskBar";
 import { cloneDeep } from "lodash";
 import { compareAsc, format } from "date-fns";
 import "./style.css";
-import "../card-style.css";
+import "../../card-style.css";
 
 function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
 	const dateFormat = "dd MMM yyyy";

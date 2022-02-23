@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import "./card-style.css";
 import { parse, format, isEqual } from "date-fns";
-import { TaskBars } from "./Task-Bars/TaskBars";
-import { TaskAdder } from "./Task-Adder/TaskAdder";
-import { TaskEditor } from "./Task-Editor/TaskEditor";
-import { Statistics } from "./Statistics/Statistics";
+import { TaskBars } from "./components/Task-Bars/TaskBars";
+import { TaskAdder } from "./components/Task-Adder/TaskAdder";
+import { TaskEditor } from "./components/Task-Editor/TaskEditor";
+import { Statistics } from "./components/Statistics/Statistics";
 import { find } from "lodash";
 
 function App() {
