@@ -45,6 +45,7 @@ function App() {
 		localStorage.setItem("currentTasks", stringifiedCurrentTasks);
 	});
 
+	//DONE
 	const modifyTasksAtTask = (nameAndDate, modifier) => {
 		const modifiedCurrentTasks = currentTasks.map((task) => {
 			if (
@@ -58,6 +59,7 @@ function App() {
 		return modifiedCurrentTasks;
 	};
 
+	//DONE
 	const check = (nameAndDate) => {
 		setCurrentTasks(
 			modifyTasksAtTask(nameAndDate, (task) => {
@@ -83,6 +85,7 @@ function App() {
 		return editRequest.name;
 	};
 
+	//DONE but still needs validation
 	const requestExecuteEdit = (nameAndDate) => {
 		if (nameAndDate.date.getTime()) {
 			if (isTaskNew(nameAndDate)) {
@@ -105,6 +108,7 @@ function App() {
 		setEditRequest(null);
 	};
 
+	// yes
 	const requestAddTask = (nameAndDate) => {
 		if (nameAndDate.date) {
 			if (isTaskNew(nameAndDate)) {
@@ -117,6 +121,7 @@ function App() {
 		}
 	};
 
+	// SOMEWHAt
 	const isTaskNew = (nameAndDate) => {
 		const matchingElement = find(currentTasks, (task) => {
 			return (
