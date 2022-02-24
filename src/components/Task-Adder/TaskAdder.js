@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { parse } from "date-fns";
 import "./style.css";
-import "../card-style.css";
+import "../../card-style.css";
 
 function TaskAdder({ onSubmit }) {
 	const [name, setName] = useState("");

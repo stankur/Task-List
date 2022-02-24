@@ -1,43 +1,49 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "./card-style.css";
-import { parse, format, isEqual } from "date-fns";
-import { TaskBars } from "./Task-Bars/TaskBars";
-import { TaskAdder } from "./Task-Adder/TaskAdder";
-import { TaskEditor } from "./Task-Editor/TaskEditor";
-import { Statistics } from "./Statistics/Statistics";
-import { find } from "lodash";
+import { parse, format } from "date-fns";
+import { TaskBars } from "./components/Task-Bars/TaskBars";
+import { TaskAdder } from "./components/Task-Adder/TaskAdder";
+import { TaskEditor } from "./components/Task-Editor/TaskEditor";
+import { Statistics } from "./components/Statistics/Statistics";
+
+import tasksList from "./abstract-objects/tasksList";
 
 function App() {
 	let currentTasksFromEarlier;
 
 	if (!localStorage.getItem("currentTasks")) {
-		currentTasksFromEarlier = [];
+		currentTasksFromEarlier = tasksList([]);
 	} else {
 		const currentTasksFromEarlierRaw = JSON.parse(
 			localStorage.getItem("currentTasks")
 		);
-		const parsedDateConverted = currentTasksFromEarlierRaw.map((task) => {
-			return {
-				name: task.name,
-				date: parse(task.date, "yyyy-MM-dd", new Date()),
-				isChecked: task.isChecked,
-			};
+
+		let tasksListAccumulator = tasksList([]);
+
+		currentTasksFromEarlierRaw.forEach((task) => {
+			tasksListAccumulator = tasksListAccumulator.addTask(
+				task.name,
+				parse(task.date, "yyyy-MM-dd", new Date()),
+				task.isChecked
+			);
 		});
-		currentTasksFromEarlier = parsedDateConverted;
+		currentTasksFromEarlier = tasksListAccumulator;
 	}
 
 	const [currentTasks, setCurrentTasks] = useState(currentTasksFromEarlier);
 	const [editRequest, setEditRequest] = useState(null);
 
 	useEffect(() => {
-		const dateConvertedCurrentTasks = currentTasks.map((task) => {
-			return {
-				name: task.name,
-				date: format(task.date, "yyyy-MM-dd"),
-				isChecked: task.isChecked,
-			};
-		});
+		const dateConvertedCurrentTasks = currentTasks.tasksListTasks.map(
+			(task) => {
+				return {
+					name: task.name,
+					date: format(task.date, "yyyy-MM-dd"),
+					isChecked: task.isChecked,
+				};
+			}
+		);
 
 		const stringifiedCurrentTasks = JSON.stringify(
 			dateConvertedCurrentTasks
@@ -45,29 +51,9 @@ function App() {
 		localStorage.setItem("currentTasks", stringifiedCurrentTasks);
 	});
 
-	const modifyTasksAtTask = (nameAndDate, modifier) => {
-		const modifiedCurrentTasks = currentTasks.map((task) => {
-			if (
-				task.name === nameAndDate.name &&
-				isEqual(task.date, nameAndDate.date)
-			) {
-				return modifier(task);
-			}
-			return task;
-		});
-		return modifiedCurrentTasks;
-	};
-
-	const check = (nameAndDate) => {
+	const toggleCheck = (nameAndDate) => {
 		setCurrentTasks(
-			modifyTasksAtTask(nameAndDate, (task) => {
-				const newCheckedState = !task.isChecked;
-				return {
-					name: task.name,
-					date: task.date,
-					isChecked: newCheckedState,
-				};
-			})
+			currentTasks.toggleCheck(nameAndDate.name, nameAndDate.date)
 		);
 	};
 
@@ -85,18 +71,14 @@ function App() {
 
 	const requestExecuteEdit = (nameAndDate) => {
 		if (nameAndDate.date.getTime()) {
-			if (isTaskNew(nameAndDate)) {
-				setCurrentTasks(
-					modifyTasksAtTask(editRequest, (task) => {
-						return {
-							name: nameAndDate.name,
-							date: nameAndDate.date,
-							isChecked: task.isChecked,
-						};
-					})
-				);
-			}
-
+			setCurrentTasks(
+				currentTasks.editTask(
+					getERName(),
+					getERDate(),
+					nameAndDate.name,
+					nameAndDate.date
+				)
+			);
 			setEditRequest(null);
 		}
 	};
@@ -107,40 +89,16 @@ function App() {
 
 	const requestAddTask = (nameAndDate) => {
 		if (nameAndDate.date) {
-			if (isTaskNew(nameAndDate)) {
-				const newTask = { ...nameAndDate, isChecked: false };
-				const newCurrentTasks = [...currentTasks, newTask];
-				setCurrentTasks(newCurrentTasks);
-			} else {
-				alert("task already exists");
-			}
-		}
-	};
-
-	const isTaskNew = (nameAndDate) => {
-		const matchingElement = find(currentTasks, (task) => {
-			return (
-				task.name === nameAndDate.name &&
-				isEqual(task.date, nameAndDate.date)
+			setCurrentTasks(
+				currentTasks.addTask(nameAndDate.name, nameAndDate.date, false)
 			);
-		});
-
-		if (matchingElement) {
-			return false;
 		}
-
-		return true;
 	};
 
 	const requestRemoveTask = (nameAndDate) => {
-		const newCurrentTasks = currentTasks.filter((task) => {
-			return !(
-				task.name === nameAndDate.name &&
-				isEqual(task.date, nameAndDate.date)
-			);
-		});
-
-		setCurrentTasks(newCurrentTasks);
+		setCurrentTasks(
+			currentTasks.removeTask(nameAndDate.name, nameAndDate.date)
+		);
 	};
 
 	const requestEditTask = (nameAndDate) => {
@@ -148,13 +106,13 @@ function App() {
 	};
 
 	const getNumTasksDone = () => {
-		return currentTasks.filter((task) => {
+		return currentTasks.tasksListTasks.filter((task) => {
 			return task.isChecked;
 		}).length;
 	};
 
 	const getNumAllTasks = () => {
-		return currentTasks.length;
+		return currentTasks.tasksListTasks.length;
 	};
 
 	return (
@@ -182,7 +140,7 @@ function App() {
 						tasks={currentTasks}
 						requestRemoveTask={requestRemoveTask}
 						requestEditTask={requestEditTask}
-						check={check}
+						check={toggleCheck}
 					/>
 				</div>
 				<div className="stats">
