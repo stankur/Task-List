@@ -33,6 +33,10 @@ const WiseWords = styled(Card)`
 	grid-area: wise-words;
 `;
 
+const TaskBarsContainer = styled(TaskBars)`
+	grid-area: tasks;
+`;
+
 function App() {
 	let currentTasksFromEarlier;
 
@@ -160,14 +164,13 @@ function App() {
 							<TaskAdder onSubmit={requestAddTask} />
 						)}
 					</div>
-					<div className="tasks">
-						<TaskBars
-							tasks={currentTasks}
-							requestRemoveTask={requestRemoveTask}
-							requestEditTask={requestEditTask}
-							check={toggleCheck}
-						/>
-					</div>
+					<TaskBarsContainer
+						theme={theme}
+						tasks={currentTasks}
+						requestRemoveTask={requestRemoveTask}
+						requestEditTask={requestEditTask}
+						check={toggleCheck}
+					/>
 					<div className="stats">
 						<Statistics
 							numTasksDone={getNumTasksDone()}

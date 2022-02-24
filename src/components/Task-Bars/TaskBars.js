@@ -1,10 +1,23 @@
 import { TaskBar } from "../Task-Bar/TaskBar";
 import { cloneDeep } from "lodash";
 import { compareAsc, format } from "date-fns";
-import "./style.css";
-import "../../card-style.css";
 
-function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
+import Card from "../../Card";
+import styled from "styled-components";
+
+const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+
+function TaskBars({
+	tasks,
+	requestRemoveTask,
+	requestEditTask,
+	check,
+	theme,
+	className,
+}) {
 	const dateFormat = "dd MMM yyyy";
 
 	const convertDateToDateString = (date, dateFormat) => {
@@ -58,14 +71,13 @@ function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
 	};
 
 	return (
-		<div className="card-container task-bars-container">
-			<div className="card-description description-task-bars">
-				CURRENT TASKS
-			</div>
-			<div className="card-content content-task-bars">
-				{makeTaskBars(tasks)}
-			</div>
-		</div>
+		<Card
+			className={className}
+			color={theme.bluey}
+			description="CURRENT TASKS"
+		>
+			<Content>{makeTaskBars(tasks)}</Content>
+		</Card>
 	);
 }
 
