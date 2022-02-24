@@ -1,18 +1,36 @@
-import { isEqual } from "date-fns";
 import task from "./task";
 
-const tasksList = (tasksListTasks) => {
-	const tasksList = tasksListTasks;
+const tasksList = (tasksArray) => {
+	const tasksListTasks = tasksArray;
 
 	const includesTask = (taskName, taskDate) => {
-		tasksList.some((task) => {
-			return task.name === taskName && isEqual(task.date, taskDate);
+		return tasksListTasks.some((task) => {
+			return task.hasSameNameAndDateAs(taskName, taskDate);
 		});
 	};
 
+	const addTask = (taskName, taskDate, isChecked) => {
+		if (!includesTask(taskName, taskDate)) {
+			const newTask = task(taskName, taskDate, isChecked);
+			return tasksList([...tasksListTasks, newTask]);
+		}
+		return tasksList(tasksListTasks);
+	};
+
+	const removeTask = (taskName, taskDate) => {
+		if (includesTask(taskName, taskDate)) {
+			return tasksList(
+				tasksListTasks.filter((task) => {
+					return !task.hasSameNameAndDateAs(taskName, taskDate);
+				})
+			);
+		}
+		return tasksList(tasksListTasks);
+	};
+
 	const modifyTask = (taskName, taskDate, modifier) => {
-		const modifiedTasksList = tasksList.map((task) => {
-			if (task.isSameAs(taskName, taskDate)) {
+		const modifiedTasksList = tasksListTasks.map((task) => {
+			if (task.hasSameNameAndDateAs(taskName, taskDate)) {
 				return modifier(task);
 			}
 			return task;
@@ -20,9 +38,9 @@ const tasksList = (tasksListTasks) => {
 		return tasksList(modifiedTasksList);
 	};
 
-	const togglecheck = (taskName, taskDate) => {
+	const toggleCheck = (taskName, taskDate) => {
 		return modifyTask(taskName, taskDate, (task) => {
-			return task.togglecheck();
+			return task.toggleCheck();
 		});
 	};
 
@@ -35,23 +53,7 @@ const tasksList = (tasksListTasks) => {
 		});
 	};
 
-	const addTask = (taskName, taskDate) => {
-		if (!includesTask(taskName, taskDate)) {
-			const newTask = task(taskName, taskDate, false);
-			return tasksList([...tasksList, newTask]);
-		}
-		return tasksList(tasksList);
-	};
-
-	const removeTask = (taskName, taskDate) => {
-		if (includesTask(taskName, taskDate)) {
-			return tasksList(
-				tasksList.filter((task) => {
-					return !task.isSameAs(taskName, taskDate);
-				})
-			);
-		}
-	};
-
-	return { tasksList, togglecheck, editTask, addTask, removeTask };
+	return { tasksListTasks, toggleCheck, editTask, addTask, removeTask };
 };
+
+export default tasksList;

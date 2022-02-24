@@ -18,7 +18,7 @@ function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
 	};
 
 	const getSortedCopyByDateOfTasks = (tasks) => {
-		const deepClonedCurrentTasks = cloneDeep(tasks);
+		const deepClonedCurrentTasks = cloneDeep(tasks.tasksListTasks);
 
 		sortByDate(deepClonedCurrentTasks);
 

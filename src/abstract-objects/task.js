@@ -17,7 +17,7 @@ const task = (taskName, taskDate, taskIsChecked) => {
 		return task(name, date, !isChecked);
 	};
 
-	const isSameAs = (taskName, taskDate) => {
+	const hasSameNameAndDateAs = (taskName, taskDate) => {
 		return name === taskName && isEqual(date, taskDate);
 	};
 
@@ -28,7 +28,7 @@ const task = (taskName, taskDate, taskIsChecked) => {
 		changeName,
 		changeDate,
 		toggleCheck,
-		isSameAs,
+		hasSameNameAndDateAs,
 	};
 };
 
