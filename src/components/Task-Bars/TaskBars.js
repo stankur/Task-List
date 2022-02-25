@@ -8,6 +8,7 @@ import styled from "styled-components";
 const Content = styled.div`
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 `;
 
 function TaskBars({
@@ -58,6 +59,7 @@ function TaskBars({
 
 			return (
 				<TaskBar
+					theme={theme}
 					name={name}
 					dateString={dateString}
 					onXClick={onXClick}
@@ -65,6 +67,7 @@ function TaskBars({
 					isChecked={isChecked}
 					onCheck={onCheck}
 					key={name + dateString}
+					id={name + dateString}
 				/>
 			);
 		});
