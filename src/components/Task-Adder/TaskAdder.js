@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { parse } from "date-fns";
-import "./style.css";
-import "../../card-style.css";
 
-function TaskAdder({ onSubmit }) {
+import NameAndDateForm from "../NameAndDateForm/NameAndDateForm";
+
+import Card from "../../Card";
+
+function TaskAdder({ onSubmit, theme, className }) {
 	const [name, setName] = useState("");
 	const [date, setDate] = useState("");
 
@@ -30,30 +32,22 @@ function TaskAdder({ onSubmit }) {
 	};
 
 	return (
-		<div className="card-container">
-			<div className="card-description description-task-adder">
-				ADD TASK
-			</div>
-			<div className="card-content form">
-				<form data-testid="form" onSubmit={submit}>
-					<label htmlFor="name">NAME </label>
-					<input
-						type="text"
-						value={name}
-						onChange={onNameChange}
-						id="name"
-					/>
-					<label htmlFor="date">DATE </label>
-					<input
-						type="date"
-						value={date}
-						onChange={onDateChange}
-						id="date"
-					/>
-					<input type="submit" data-testid="Submit" />
-				</form>
-			</div>
-		</div>
+		<Card
+			className={className}
+			color={theme.greeny}
+			theme={theme}
+			description="ADD TASK"
+		>
+			<NameAndDateForm
+				data-testid="form"
+				theme={theme}
+				name={name}
+				onNameChange={onNameChange}
+				date={date}
+				submit={submit}
+				onDateChange={onDateChange}
+			></NameAndDateForm>
+		</Card>
 	);
 }
 

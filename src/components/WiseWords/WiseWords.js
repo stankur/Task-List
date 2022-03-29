@@ -8,7 +8,7 @@ const QuoteTextHolder = styled.div`
 	width: 90%;
 	word-wrap: break-word;
 
-	color: ${(props) => darken(0.1, props.theme.white)};
+	color: ${(props) => darken(0.15, props.theme.white)};
 	font-family: sans-serif;
 	font-size: 16px;
 
@@ -62,7 +62,7 @@ function WiseWords({ theme, className }) {
 			theme={theme}
 			color={theme.greeny}
 			className={className}
-			description="Wise Words"
+			description="WISE WORDS"
 		>
 			<QuoteTextHolder>{quote.text}</QuoteTextHolder>
 			<AuthorNameHolder>{quote.author}</AuthorNameHolder>

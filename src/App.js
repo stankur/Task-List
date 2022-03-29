@@ -155,13 +155,17 @@ function App() {
 					<div className="modifier">
 						{isThereEditRequest() ? (
 							<TaskEditor
+								theme={theme}
 								taskName={getERName()}
 								taskDate={getERDate()}
 								onSubmit={requestExecuteEdit}
 								onCancel={requestCancelEdit}
 							/>
 						) : (
-							<TaskAdder onSubmit={requestAddTask} />
+							<TaskAdder
+								theme={theme}
+								onSubmit={requestAddTask}
+							/>
 						)}
 					</div>
 					<TaskBarsContainer

@@ -79,6 +79,42 @@ const CheckBoxContent = styled.span`
 	transition: opacity 100ms ease-in-out;
 `;
 
+const XButton = styled.button`
+	background-color: rgba(242, 97, 97, 0);
+	border-radius: 50%;
+
+	height: 25px;
+	width: 25px;
+
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgba(242, 97, 97, 1);
+
+	transition: background-color 200ms ease-in-out;
+
+	&:hover {
+		background-color: rgba(242, 97, 97, 0.5);
+	}
+`;
+
+const EditButton = styled.button`
+	background-color: rgba(255, 136, 77, 0);
+	border-radius: 50%;
+
+	height: 25px;
+	width: 25px;
+
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgba(255, 136, 77, 1);
+
+	transition: background-color 200ms ease-in-out;
+
+	&:hover {
+		background-color: rgba(255, 136, 77, 0.5);
+	}
+`;
+
 function TaskBar({
 	name,
 	dateString,
@@ -105,12 +141,8 @@ function TaskBar({
 			<HiddenRealCheckBox />
 			<TaskName>{name}</TaskName>
 			<span>{dateString}</span>
-			<button id="x" onClick={onXClick}>
-				X
-			</button>
-			<button id="E" onClick={onEClick}>
-				E
-			</button>
+			<XButton id="x" onClick={onXClick}></XButton>
+			<EditButton id="E" onClick={onEClick}></EditButton>
 		</TaskBarContainer>
 	);
 }
