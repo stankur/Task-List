@@ -1,13 +1,41 @@
 import React, { useState, useEffect } from "react";
+
 import "./App.css";
 import "./card-style.css";
+import styled, { ThemeProvider } from "styled-components";
+import { rgb } from "polished";
+
 import { parse, format } from "date-fns";
+
 import { TaskBars } from "./components/Task-Bars/TaskBars";
 import { TaskAdder } from "./components/Task-Adder/TaskAdder";
 import { TaskEditor } from "./components/Task-Editor/TaskEditor";
 import { Statistics } from "./components/Statistics/Statistics";
+import { WiseWords } from "./components/WiseWords/WiseWords";
 
 import tasksList from "./abstract-objects/tasksList";
+
+const theme = {
+	backgroundColor: rgb(33, 33, 33),
+	semiDark: rgb(41, 41, 41),
+	semiLightGray: rgb(64, 63, 63),
+	lightGray: rgb(80, 80, 80),
+	greeny: rgb(3, 218, 197),
+	bluey: rgb(3, 195, 218),
+	white: rgb(251, 251, 251),
+
+	roundyFont: "Arial Rounded MT Bold",
+
+	gapSize: "20px",
+};
+
+const WiseWordsContainer = styled(WiseWords)`
+	grid-area: wise-words;
+`;
+
+const TaskBarsContainer = styled(TaskBars)`
+	grid-area: tasks;
+`;
 
 function App() {
 	let currentTasksFromEarlier;
@@ -116,47 +144,48 @@ function App() {
 	};
 
 	return (
-		<div className="App">
-			<div className="content">
-				<div className="logo-container">
-					<div className="logo">
-						<span>TASKLIST</span>
+		<ThemeProvider theme={theme}>
+			<div className="App">
+				<div className="content">
+					<div className="logo-container">
+						<div className="logo">
+							<span>TASKLIST</span>
+						</div>
 					</div>
-				</div>
-				<div className="modifier">
-					{isThereEditRequest() ? (
-						<TaskEditor
-							taskName={getERName()}
-							taskDate={getERDate()}
-							onSubmit={requestExecuteEdit}
-							onCancel={requestCancelEdit}
-						/>
-					) : (
-						<TaskAdder onSubmit={requestAddTask} />
-					)}
-				</div>
-				<div className="tasks">
-					<TaskBars
+					<div className="modifier">
+						{isThereEditRequest() ? (
+							<TaskEditor
+								theme={theme}
+								taskName={getERName()}
+								taskDate={getERDate()}
+								onSubmit={requestExecuteEdit}
+								onCancel={requestCancelEdit}
+							/>
+						) : (
+							<TaskAdder
+								theme={theme}
+								onSubmit={requestAddTask}
+							/>
+						)}
+					</div>
+					<TaskBarsContainer
+						theme={theme}
 						tasks={currentTasks}
 						requestRemoveTask={requestRemoveTask}
 						requestEditTask={requestEditTask}
 						check={toggleCheck}
 					/>
-				</div>
-				<div className="stats">
-					<Statistics
-						numTasksDone={getNumTasksDone()}
-						numAllTasks={getNumAllTasks()}
-					/>
-				</div>
-				<div className="card-container wise-words">
-					<div className="card-description description-wise-words">
-						WISE WORDS
+					<div className="stats">
+						<Statistics
+							theme={theme}
+							numTasksDone={getNumTasksDone()}
+							numAllTasks={getNumAllTasks()}
+						/>
 					</div>
-					<div className="card-content content-wise-words"></div>
+					<WiseWordsContainer theme={theme}></WiseWordsContainer>
 				</div>
 			</div>
-		</div>
+		</ThemeProvider>
 	);
 }
 

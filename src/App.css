@@ -76,29 +76,12 @@
 	border-color: var(--white);
 }
 
-.tasks {
-	grid-area: tasks;
-}
-
 .modifier {
 	grid-area: modifier;
 }
 
 .stats {
 	grid-area: stats;
-}
-
-.wise-words {
-	grid-area: wise-words;
-}
-
-.description-wise-words {
-	border-color: var(--greeny);
-	color: var(--greeny);
-}
-
-.content-wise-words {
-	border-color: var(--greeny);
 }
 
 .content {

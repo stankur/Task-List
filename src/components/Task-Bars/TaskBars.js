@@ -1,10 +1,25 @@
 import { TaskBar } from "../Task-Bar/TaskBar";
 import { cloneDeep } from "lodash";
 import { compareAsc, format } from "date-fns";
-import "./style.css";
-import "../../card-style.css";
 
-function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
+import React from "react";
+import Card from "../../Card";
+import styled from "styled-components";
+
+const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+`;
+
+function TaskBars({
+	tasks,
+	requestRemoveTask,
+	requestEditTask,
+	check,
+	theme,
+	className,
+}) {
 	const dateFormat = "dd MMM yyyy";
 
 	const convertDateToDateString = (date, dateFormat) => {
@@ -45,6 +60,7 @@ function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
 
 			return (
 				<TaskBar
+					theme={theme}
 					name={name}
 					dateString={dateString}
 					onXClick={onXClick}
@@ -52,20 +68,20 @@ function TaskBars({ tasks, requestRemoveTask, requestEditTask, check }) {
 					isChecked={isChecked}
 					onCheck={onCheck}
 					key={name + dateString}
+					id={name + dateString}
 				/>
 			);
 		});
 	};
 
 	return (
-		<div className="card-container task-bars-container">
-			<div className="card-description description-task-bars">
-				CURRENT TASKS
-			</div>
-			<div className="card-content content-task-bars">
-				{makeTaskBars(tasks)}
-			</div>
-		</div>
+		<Card
+			className={className}
+			color={theme.bluey}
+			description="CURRENT TASKS"
+		>
+			<Content>{makeTaskBars(tasks)}</Content>
+		</Card>
 	);
 }
 
