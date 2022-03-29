@@ -4,7 +4,6 @@ import "./App.css";
 import "./card-style.css";
 import styled, { ThemeProvider } from "styled-components";
 import { rgb } from "polished";
-import Card from "./Card";
 
 import { parse, format } from "date-fns";
 
@@ -12,6 +11,7 @@ import { TaskBars } from "./components/Task-Bars/TaskBars";
 import { TaskAdder } from "./components/Task-Adder/TaskAdder";
 import { TaskEditor } from "./components/Task-Editor/TaskEditor";
 import { Statistics } from "./components/Statistics/Statistics";
+import { WiseWords } from "./components/WiseWords/WiseWords";
 
 import tasksList from "./abstract-objects/tasksList";
 
@@ -29,7 +29,7 @@ const theme = {
 	gapSize: "20px",
 };
 
-const WiseWords = styled(Card)`
+const WiseWordsContainer = styled(WiseWords)`
 	grid-area: wise-words;
 `;
 
@@ -173,14 +173,12 @@ function App() {
 					/>
 					<div className="stats">
 						<Statistics
+							theme={theme}
 							numTasksDone={getNumTasksDone()}
 							numAllTasks={getNumAllTasks()}
 						/>
 					</div>
-					<WiseWords
-						color={theme.greeny}
-						description="WISE WORDS"
-					></WiseWords>
+					<WiseWordsContainer theme={theme}></WiseWordsContainer>
 				</div>
 			</div>
 		</ThemeProvider>

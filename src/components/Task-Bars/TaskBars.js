@@ -2,6 +2,7 @@ import { TaskBar } from "../Task-Bar/TaskBar";
 import { cloneDeep } from "lodash";
 import { compareAsc, format } from "date-fns";
 
+import React from "react";
 import Card from "../../Card";
 import styled from "styled-components";
 
