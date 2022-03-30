@@ -27,3 +27,5 @@ npm install -g local-cors-proxy
 ```
 lcp --proxyUrl https://zenquotes.io
 ```
+
+If you want to see more info related to the CORS problems in more detail, I found [this particular article](https://medium.com/tribalscale/stop-cursing-cors-c2cbb4997057) pretty helpful for me.
