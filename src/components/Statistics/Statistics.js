@@ -61,12 +61,24 @@ const AnimatedCompletion = styled.div`
 	&::after {
 		content: "${(props) => props.stat}%";
 		display: block;
+
+		padding: 5px;
+
 		margin-top: 3px;
+		margin-left: auto;
+		margin-right: auto;
+
 		font-family: ${(props) => props.theme.roundyFont}, sans-serif;
 		font-size: 25px;
 		color: ${(props) =>
-			mix(props.stat / 100, props.theme.greeny, rgb(235, 97, 97))};
+			mix(props.stat / 100, props.theme.greeny, rgb(218, 70, 3))};
 
+		border-radius: 5px;
+
+		width: 35%;
+
+		background-color: ${(props) =>
+			transparentize(0.6, props.theme.lightGray)};
 		transition: color 200ms ease-in-out;
 	}
 `;

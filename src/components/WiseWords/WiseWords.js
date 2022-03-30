@@ -30,7 +30,7 @@ const AuthorNameHolder = styled.div`
 
 	padding: 5px;
 	border-radius: 2px;
-	background-color: ${(props) => transparentize(0.5, props.theme.lightGray)};
+	background-color: ${(props) => transparentize(0.6, props.theme.lightGray)};
 `;
 
 function WiseWords({ theme, className }) {
